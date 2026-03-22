@@ -1,6 +1,6 @@
 import random
 
-#  cleans a room based on current percept, with an environment where state changes randomly each step
+# cleans a room based on current percept, with an environment where state changes randomly each step
 
 class Environment:
     def __init__(self):
