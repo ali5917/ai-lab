@@ -40,10 +40,7 @@ def run_agent(agent, environment, steps):
         if percept == 'Dirty':
             environment.clean_room()
 
-
-# Create agent and environment
 agent = ModelBasedAgent()
 environment = Environment()
 
-# Run for 5 steps
 run_agent(agent, environment, 5)

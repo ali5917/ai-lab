@@ -93,7 +93,6 @@ def run_agent(agent, environment, steps):
         
         agent.move()
 
-
 agent = SimpleReflexAgent()
 environment = Environment()
 
