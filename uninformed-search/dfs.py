@@ -1,5 +1,19 @@
-# dfs goal-based agent
+# dfs algorithm
 
+# 1. create a 'visited' set to track explored nodes for fast lookup
+# 2. create a 'stack' (lifo) to control traversal order
+# 3. add the start node to both 'visited' and 'stack'
+# 4. repeat until the stack is empty:
+#    - remove the top node from the stack
+#    - process the node (e.g., print)
+#    - if node is the goal → stop and return success
+#    - otherwise, explore all neighbors in reverse order
+#    - for each neighbor not in visited:
+#         → add to visited
+#         → add to stack
+# 5. if stack empties without finding goal → return failure
+
+# dfs goal-based agent
 class Environment:
     def __init__(self, graph):
         self.graph = graph
@@ -17,10 +31,10 @@ class GoalBasedAgent:
         return "Searching"
 
     def dfs_search(self, graph, start, goal):
-        visited = []
+        visited = set()
         stack = []
 
-        visited.append(start)
+        visited.add(start)
         stack.append(start)
 
         while stack:
@@ -33,7 +47,7 @@ class GoalBasedAgent:
             # reverse to maintain correct DFS order
             for neighbour in reversed(graph.get(node, [])):
                 if neighbour not in visited:
-                    visited.append(neighbour)
+                    visited.add(neighbour)
                     stack.append(neighbour)
 
         return "Goal not found"
@@ -73,7 +87,24 @@ environment = Environment(tree)
 
 run_agent(agent, environment, start_node)
 
-# depth-limited dfs
+# depth-limited dfs algorithm
+
+# 1. define a recursive dfs function with parameters:
+#       node, goal, current depth, path, visited set
+# 2. if current depth exceeds depth_limit → stop recursion
+# 3. mark current node as visited and add to path
+# 4. process the node (e.g., print with depth)
+# 5. if node is the goal → return current path
+# 6. if depth < depth_limit:
+#       - for each neighbor not in visited:
+#           → recursively call dfs with depth + 1
+#           → if goal found in recursion → return path
+# 7. if no goal found at this branch → backtrack:
+#       - remove node from path and visited
+#       - return None
+# 8. after recursion finishes:
+#       - if result_path exists → print goal and path
+#       - else → print goal not found within depth limit
 
 def dls(graph, start, goal, depth_limit):
 

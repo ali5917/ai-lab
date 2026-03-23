@@ -1,5 +1,19 @@
-# bfs goal-based agent
+# bfs algorithm
 
+# 1. create a 'visited' set to track explored nodes for fast lookup
+# 2. create a 'queue' (fifo) to control traversal order
+# 3. add the start node to both 'visited' and 'queue'
+# 4. repeat until the queue is empty:
+#    - remove the front node from the queue
+#    - process the node (e.g., print)
+#    - if node is the goal → stop and return success
+#    - otherwise, explore all neighbors
+#    - for each neighbor not in visited:
+#         → add to visited
+#         → add to queue
+# 5. if queue empties without finding goal → return failure
+
+# bfs goal-based agent
 class Environment:
     def __init__(self, graph):
         self.graph = graph
@@ -18,10 +32,10 @@ class GoalBasedAgent:
         return "Searching"
 
     def bfs_search(self, graph, start, goal):
-        visited = []  
-        queue = []    
+        visited = set()  
+        queue = []       
 
-        visited.append(start)
+        visited.add(start)
         queue.append(start)
 
         while queue:
@@ -33,10 +47,11 @@ class GoalBasedAgent:
 
             for neighbour in graph.get(node, []):
                 if neighbour not in visited:
-                    visited.append(neighbour)
+                    visited.add(neighbour)
                     queue.append(neighbour)
 
         return "Goal not found"
+
 
     def act(self, percept, graph):
         # decide what to do based on goal status
@@ -73,7 +88,6 @@ run_agent(agent, environment, start_node)
 
 
 # maze grid example (1 = open, 0 = blocked)
-
 maze = [
     [1, 1, 0],
     [1, 1, 0],
@@ -105,10 +119,10 @@ def create_graph(maze):
     return graph
 
 def bfs(graph, start, goal):
-    visited = []
+    visited = set()
     queue = []
 
-    visited.append(start)
+    visited.add(start)
     queue.append(start)
 
     while queue:
@@ -116,13 +130,14 @@ def bfs(graph, start, goal):
         print(node, end=" ")
 
         if node == goal:
-            print("\nGoal found!")
+            print("\ngoal found!")
             return
 
         for neighbour in graph.get(node, []):
             if neighbour not in visited:
-                visited.append(neighbour)
+                visited.add(neighbour)
                 queue.append(neighbour)
+
 
 graph = create_graph(maze)
 
