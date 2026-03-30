@@ -21,15 +21,15 @@
 
 def ucs(graph, start, goal):
     # pq is a list of (node, cumulative_cost)
-    pq = [(start, 0)]
+    frontier = [(start, 0)]
     visited = set()                 
     cost_so_far = {start: 0}        # min cost to reach each node
     came_from = {start: None}       # for path reconstruction
 
-    while pq:
+    while frontier:
         # sort frontier by cost (simulate priority queue)
-        pq.sort(key=lambda x: x[1])
-        current_node, current_cost = pq.pop(0)
+        frontier.sort(key=lambda x: x[1])
+        current_node, current_cost = frontier.pop(0)
 
         if current_node in visited:
             continue
@@ -50,10 +50,10 @@ def ucs(graph, start, goal):
         for neighbor, cost in graph.get(current_node, {}).items():
             new_cost = current_cost + cost
             # if neighbor not visited or we found cheaper path
-            if neighbor not in cost_so_far or new_cost < cost_so_far[neighbor]:
+            if new_cost < cost_so_far[neighbor]:
                 cost_so_far[neighbor] = new_cost
                 came_from[neighbor] = current_node
-                pq.append((neighbor, new_cost))
+                frontier.append((neighbor, new_cost))
 
     print("Goal not found")
 

@@ -6,8 +6,8 @@ Beam Search explores a graph/tree by keeping only the best 'k' paths at each lev
     Initialize an empty list of candidate paths.
     For each path in the beam:
         Check the last node:
-           - If it is the goal, return the path and cost.
-        Expand the node to generate successors:
+            - If it is the goal, return the path and cost.
+            Expand the node to generate successors:
             - For each neighbor, create new path & cumulative cost.
             - Add it to candidates.
     Keep only the top 'k' paths with lowest cumulative cost.
@@ -28,7 +28,7 @@ graph = {
     'L': [], 'M': []
 }
 
-def beam_search(start, goal, beam_width=2):
+def beam_search(start, goal, beam_width = 2):
     beam = [(0, [start])]  # (cumulative_cost, path)
     
     while beam:

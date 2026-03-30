@@ -50,8 +50,7 @@ class GoalBasedAgent:
                     visited.add(neighbour)
                     queue.append(neighbour)
 
-        return "Goal not found"
-
+        return "Goal not found" 
 
     def act(self, percept, graph):
         # decide what to do based on goal status
@@ -66,7 +65,7 @@ def run_agent(agent, environment, start_node):
     action = agent.act(percept, environment.graph) 
     print(action)
 
-tree = {
+graph = {
     'A': ['B', 'C'],
     'B': ['D', 'E'],
     'C': ['F', 'G'],
@@ -82,7 +81,7 @@ start_node = 'A'
 goal_node = 'I'
 
 agent = GoalBasedAgent(goal_node)
-environment = Environment(tree)
+environment = Environment(graph)
 
 run_agent(agent, environment, start_node)
 

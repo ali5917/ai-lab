@@ -21,7 +21,6 @@ class Node:
     def __init__(self, position, parent=None):
         self.position = position
         self.parent = parent
-        self.g = 0  # cost from start (not used in GBFS)
         self.h = 0  # heuristic: estimated distance to goal
         self.f = 0  # f = h for GBFS
 
@@ -29,7 +28,7 @@ class Node:
         return self.f < other.f  # Needed for PriorityQueue
 
 def heuristic(current_pos, end_pos):
-    """Manhattan distance heuristic for grid"""
+    # Manhattan distance heuristic for grid
     return abs(current_pos[0] - end_pos[0]) + abs(current_pos[1] - end_pos[1])
 
 def gbfs_grid(maze, start, end):
@@ -62,7 +61,6 @@ def gbfs_grid(maze, start, end):
                 maze[new_pos[0]][new_pos[1]] == 0 and new_pos not in visited):
                 
                 new_node = Node(new_pos, current_node)
-                new_node.g = current_node.g + 1
                 new_node.h = heuristic(new_pos, end)
                 new_node.f = new_node.h  # GBFS uses only heuristic
                 frontier.put(new_node)

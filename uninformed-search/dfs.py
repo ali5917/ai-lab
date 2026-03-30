@@ -107,7 +107,6 @@ run_agent(agent, environment, start_node)
 #       - else → print goal not found within depth limit
 
 def dls(graph, start, goal, depth_limit):
-
     def dfs(node, goal, depth, path, visited):
         if depth > depth_limit:
             return None

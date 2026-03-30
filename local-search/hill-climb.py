@@ -2,7 +2,6 @@
 Hill Climbing starts with a random solution and keeps improving it by moving to a better neighbor.
 
 N-Queens Representation:
-
 - State = list of size N
   Example (N=4): [1, 3, 0, 2]
   Index = row
@@ -17,10 +16,10 @@ Simple Hill Climbing:
 1. Generate a random initial state.
 2. Compute its heuristic (conflicts).
 3. Repeat:
-    a. Generate all neighbors.
-    b. Find the first neighbor with fewer conflicts.
-    c. If found → move to that neighbor.
-    d. If no better neighbor → STOP (local optimum).
+    - Generate all neighbors.
+    - Find the first neighbor with fewer conflicts.
+    - If found → move to that neighbor.
+    - If no better neighbor → STOP (local optimum).
 4. Return the current state.
 """
 
@@ -56,7 +55,11 @@ def get_neighbors(state):
 # 3. Simple Hill Climbing
 def simple_hill_climbing(n): 
     # random initial state  
-    current_state = [random.randint(0, n - 1) for _ in range(n)] 
+    current_state = []
+    for i in range(n):
+        value = random.randint(0, n - 1)
+        current_state.append(value)
+
     current_conflicts = calculate_conflicts(current_state) 
     
     while True:

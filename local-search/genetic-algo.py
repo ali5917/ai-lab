@@ -61,7 +61,7 @@ def create_random_individual():
 def select_parents(population, fitness_scores):
     # pair each individual with its fitness                                        
     paired = list(zip(fitness_scores, population))  # [(fitness, individual), ...]
-    paired.sort(reverse=True)  
+    paired.sort(key=lambda x: x[0], reverse=True)  
 
     sorted_population = []
     for fitness, individual in paired:
@@ -229,7 +229,7 @@ def create_random_schedule():
 # 4. Selection (select top 50% (lowest penalty))
 def select_parents(population, fitness_scores):
     paired = list(zip(fitness_scores, population))  # [(fitness, individual), ...]
-    paired.sort()  # sort by fitness ascending (lower penalty is better)
+    paired.sort(key=lambda x: x[0])  # sort by fitness ascending (lower penalty is better)
 
     # extract only the individuals
     sorted_population = []
