@@ -44,7 +44,7 @@ class GoalBasedAgent:
             neighbours = graph.get(currentNode, [])
             for thisCost, neighbour in neighbours:
                 newCost = cost + thisCost
-                if newCost < costs[neighbour]:
+                if neighbour not in costs or newCost < costs[neighbour]:
                     costs[neighbour] = newCost
                     cameFrom[neighbour] = currentNode
                     frontier.append((neighbour, newCost))
