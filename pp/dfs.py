@@ -36,7 +36,6 @@ def dfs (grid, start):
                 newPath = path + [newPosition]
                 newVisited = visited + [newPosition]
                 frontier.append((newPosition, newPath, newVisited))
-                cameFrom[newPosition] = position
     
     return shortestPath
 
