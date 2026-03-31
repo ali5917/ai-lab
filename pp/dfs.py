@@ -24,6 +24,7 @@ def dfs (grid, start):
                     shortestPath = path
             else: 
                 shortestPath = path
+            continue
         
         for dx, dy in [(0,1),(0,-1),(1,0),(-1,0)]:
             newPosition = (position[0] + dx, position[1] + dy)
