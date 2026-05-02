@@ -147,7 +147,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 # 14. Selecting Numerical Features
-dfNum = df.select_dtypes(include=['float64', 'int64'])
+dfNum = df.select_dtypes(include=['number'])
 print(" *** Numeric values  ***")
 print(dfNum.head())
 
@@ -156,8 +156,8 @@ plt.suptitle('Histogram of Numeric Values')
 plt.show()
 
 # 15. Correlation Analysis
-dfNum = df.select_dtypes(include=['float64', 'int64'])
-dfNumCorr = dfNum.corr()['SalePrice'][:-1] # exclude SalePrice vs itself
+dfNum = df.select_dtypes(include=['number'])
+dfNumCorr = dfNum.corr()['SalePrice'][:-1] # exclude itself
 goldenFeaturesList = dfNumCorr[abs(dfNumCorr) > 0.5].sort_values(ascending=False)
 
 print("\nSalePrice Golden Features (High Correlation > 0.5)")
@@ -165,7 +165,7 @@ print(goldenFeaturesList)
 
 # Visualizing Correlation Heatmap --- sns.heatmap() for matrix charts
 plt.figure(figsize=(12, 10))
-sns.heatmap(dfNum.corr(), annot=False, cmap='coolwarm')
+sns.heatmap(dfNum.corr(), cmap='coolwarm')
 plt.title("Correlation Matrix of Numerical Features")
 plt.show()
 
