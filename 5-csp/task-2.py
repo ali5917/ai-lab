@@ -11,13 +11,13 @@ Dressing Schedule: Assign one unique outfit per day (Mon-Fri) under constraints:
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 
 # outfits (domain pool)
-shirtPants = []                                                             # 15 combos (index 0-14)
-for s in range(1, 6):
+shirtPants = []                                     # 15 combos (index 0-14)
+for s in range(1, 6):                   
     for p in range(1, 4):
         shirtPants.append(f'S{s}-P{p}')
 
-shalwarQamees = ['SQ1', 'SQ2']                                              # 2 sets    (index 15-16)
-allOutfits    = shirtPants + shalwarQamees                                  # 17 total
+shalwarQamees = ['SQ1', 'SQ2']                      # 2 sets    (index 15-16)
+allOutfits    = shirtPants + shalwarQamees          # 17 total
 
 model = cp_model.CpModel()
 

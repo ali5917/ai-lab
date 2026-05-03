@@ -8,5 +8,8 @@ Implementations of fundamental AI algorithms and concepts.
 - **Informed Search**: A*, GBFS.
 - **Local Search**: Hill Climbing, Genetic Algorithms, and Beam Search.
 - **CSP**: Constraint Satisfaction using OR-Tools (N-Queens, Scheduling, Graphs).
-- **Bayesian Networks**: Probabilistic inference with pgmpy.
-- **Practice Problems**: Solved past papers and exercises.
+- **Adversarial Search**: Minimax algorithm and Alpha-Beta Pruning.
+- **Bayesian Networks**: Probabilistic inference using pgmpy.
+- **Supervised Learning**: Linear Regression, Decision Trees, and Support Vector Machines (SVM).
+- **Unsupervised Learning**: K-Means Clustering.
+- **EDA**: Exploratory Data Analysis using Pandas, Matplotlib, and Seaborn.
