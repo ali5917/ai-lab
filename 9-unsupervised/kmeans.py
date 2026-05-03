@@ -23,22 +23,26 @@ XScaled = scaler.fit_transform(X)
 # Elbow Method to find optimal K
 wcss = []
 for i in range(1, 11):
-    kmeans = KMeans(n_clusters=i, init='k-means++', n_init=10, random_state=42)
+    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
     kmeans.fit(XScaled)
     wcss.append(kmeans.inertia_)
-print(wcss)
+
+plt.plot(range(1,11), wcss)
+plt.title('Elbow Method')
+plt.xlabel('Number of Clusters (K)')
+plt.ylabel('WCSS')
+plt.show()
 
 # Train Final KMeans Model (K=5 chosen from elbow)
-kmeans = KMeans(n_clusters=5, init='k-means++', n_init=10, random_state=42)
-y_kmeans = kmeans.fit_predict(XScaled)
+kmeans = KMeans(n_clusters=5, init='k-means++', random_state=42)
+yKmeans = kmeans.fit_predict(XScaled)
 
 # Visualize Clusters
 plt.figure(figsize=(10, 7))
-
 colors = ['red', 'blue', 'green', 'cyan', 'magenta']
 for i in range(5):
     plt.scatter(
-        X[y_kmeans == i, 0], X[y_kmeans == i, 1], 
+        X[yKmeans == i, 0], X[yKmeans == i, 1], 
         s=100, c=colors[i], 
         label=f'Cluster {i+1}'
     )
