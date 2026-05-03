@@ -69,17 +69,17 @@ plt.show()
 
 # Final Model (Assuming K=3)
 kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
-yKmeans = kmeans.fit_predict(XScaled)
+yPred = kmeans.fit_predict(XScaled)
 
 # 5. Visualize Clusters (Plotting first two features)
 plt.figure(figsize=(10, 7))
 colors = ['red', 'blue', 'green']
 for i in range(3):
-    plt.scatter(X[yKmeans == i, 0], X[yKmeans == i, 1], s=100, c=colors[i], label=f'Cluster {i+1}')
+    plt.scatter(X[yPred == i, 0], X[yPred == i, 1], s=100, c=colors[i], label=f'Cluster {i+1}')
 
 # Plot Centroids
 centroids = scaler.inverse_transform(kmeans.cluster_centers_)
-plt.scatter(centroids[:, 0], centroids[:, 1], s=300, c='yellow', label='Centroids', edgecolors='black')
+plt.scatter(centroids[:, 0], centroids[:, 1], s=300, c='yellow', label='Centroids')
 
 plt.title('User Activity Segments')
 plt.xlabel(featureNames[0])

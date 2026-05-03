@@ -140,7 +140,7 @@ print("*** Dataset Description *** ")
 print(df['SalePrice'].describe())
 
 plt.figure(figsize=(9,8))
-sns.histplot(x='SalePrice', data=df, bins=100, kde=True)
+sns.histplot(data=df, x='SalePrice', bins=100, kde=True)
 plt.title('Histogram of SalePrice')
 plt.xlabel('SalePrice')
 plt.ylabel('Frequency')
@@ -151,7 +151,7 @@ dfNum = df.select_dtypes(include=['number'])
 print(" *** Numeric values  ***")
 print(dfNum.head())
 
-dfNum.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8)
+dfNum.hist(figsize=(16, 20), bins=50)
 plt.suptitle('Histogram of Numeric Values')
 plt.show()
 
@@ -170,13 +170,13 @@ plt.title("Correlation Matrix of Numerical Features")
 plt.show()
 
 # 16 Visualizing Categorical Distributions (countplot)
-sns.countplot(x='MSZoning', data=df)
+sns.countplot(data=df, x='MSZoning')
 plt.title('Frequency of Houses by Zoning')
 plt.show()
 
 # countplot with a hue (color-coded by another variable):
 # Already created HighPrice in section 11
-sns.countplot(x='CentralAir', hue='HighPrice', data=df)
+sns.countplot(data=df, x='CentralAir', hue='HighPrice')
 plt.title('High Price Houses vs Central Air')
 plt.show()
 
