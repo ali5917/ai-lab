@@ -13,10 +13,10 @@ Steps:
 """
 
 # step 1 — variables
-variables = ['A', 'B', 'C']                             # things to assign values to
+variables = ['A', 'B', 'C']             # things to assign values to
 
 # step 2 — domain pool
-domain = ['Red', 'Green', 'Blue']                       # possible values (will be encoded as 0, 1, 2...)
+domain = ['Red', 'Green', 'Blue']       # possible values (encoded as 0, 1, 2...)
 
 # step 3 — create model and solver variables
 model = cp_model.CpModel()
@@ -42,28 +42,28 @@ model.add(solverVars['A'] == 0)
 class SolutionCollector(cp_model.CpSolverSolutionCallback):
     def __init__(self, variables):
         cp_model.CpSolverSolutionCallback.__init__(self)
-        self._variables = variables                     # store solverVars
-        self.solutions = []                             # list to collect all solutions
+        self.variables = variables                     # store solverVars
+        self.solutions = []                            # list to collect all solutions
 
-    def on_solution_callback(self):                     # auto-called on each valid solution
+    def on_solution_callback(self):                    # auto-called on each valid solution
         sol = {}
-        for var, intVar in self._variables.items():     # for each variable and its solver handle
-            sol[var] = domain[self.value(intVar)]       # self.value() -> index -> domain value
+        for var, intVar in self.variables.items():     # for each variable and its solver handle
+            sol[var] = domain[self.value(intVar)]      # self.value() -> index -> domain value
         self.solutions.append(sol)
 
 collector = SolutionCollector(solverVars)
 
 # step 6 — run solver and print results
 solver = cp_model.CpSolver()
-solver.parameters.enumerate_all_solutions = True        # find every valid assignment
+solver.parameters.enumerate_all_solutions = True       # find every valid assignment
 
 status = solver.solve(model, collector)
 
 # output
 if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
     print(f"Total solutions found: {len(collector.solutions)}\n")
-    for i, sol in enumerate(collector.solutions, 1):
-        print(f"Solution {i}: {sol}")
+    for i, sol in enumerate(collector.solutions):
+        print(f"Solution {i + 1}: {sol}")
 else:
     print("No solution found.")
 

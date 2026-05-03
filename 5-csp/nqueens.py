@@ -34,12 +34,12 @@ for r1 in range(N):
 class SolutionCollector(cp_model.CpSolverSolutionCallback):
     def __init__(self, variables):
         cp_model.CpSolverSolutionCallback.__init__(self)
-        self._variables = variables                     # store queenVars
-        self.solutions = []                             # list to collect all solutions
+        self.variables = variables                     # store queenVars
+        self.solutions = []                            # list to collect all solutions
 
-    def on_solution_callback(self):                     # auto-called on each valid solution
+    def on_solution_callback(self):                    # auto-called on each valid solution
         sol = {}
-        for row, var in self._variables.items():        # for each row and its solver variable
+        for row, var in self.variables.items():        # for each row and its solver variable
             sol[row] = self.value(var)                  # self.value(var) -> column index
         self.solutions.append(sol)
 
@@ -47,7 +47,6 @@ collector = SolutionCollector(queenVars)
 
 solver = cp_model.CpSolver()
 solver.parameters.enumerate_all_solutions = True       # find every valid placement
-
 status = solver.solve(model, collector)
 
 # pretty print helper (. = empty, Q = queen)

@@ -41,12 +41,12 @@ for node, neighbors in graph.items():
 class SolutionCollector(cp_model.CpSolverSolutionCallback):
     def __init__(self, variables):
         cp_model.CpSolverSolutionCallback.__init__(self)  
-        self._variables = variables                        # store nodeVars
+        self.variables = variables                        # store nodeVars
         self.solutions = []                                # list to collect all solutions
 
     def on_solution_callback(self):
         sol = {}
-        for node, var in self._variables.items():          # for each node and its solver variable
+        for node, var in self.variables.items():          # for each node and its solver variable
             sol[node] = colors[self.value(var)]            # self.value(var) → 0/1/2 → color name
         self.solutions.append(sol)                        
 
@@ -54,13 +54,13 @@ collector = SolutionCollector(nodeVars)
 
 solver = cp_model.CpSolver()
 solver.parameters.enumerate_all_solutions = True       # find every valid coloring 
-
 status = solver.solve(model, collector)
 
 # output
 if status in (cp_model.OPTIMAL, cp_model.FEASIBLE):
     print(f"Total valid colorings found: {len(collector.solutions)}\n")
-    for i, sol in enumerate(collector.solutions, 1):
-        print(f"Solution {i}: {sol}")
+    print("First 5 solutions:")
+    for i, sol in enumerate(collector.solutions[:5]):
+        print(f"Solution {i + 1}: {sol}")
 else:
     print("No solution found.")
