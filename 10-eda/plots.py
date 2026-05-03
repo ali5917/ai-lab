@@ -1,3 +1,7 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 # Histogram (Seaborn) - Used to see the distribution of a single numeric variable
 sns.histplot(data=df, x='Calories_Burned', kde=True)
 sns.histplot(data=df, x='SalePrice', bins=100, kde=True)
