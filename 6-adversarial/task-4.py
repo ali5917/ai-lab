@@ -101,19 +101,16 @@ def alphaBeta(depth, alpha, beta, maximizing):
         return value
 
 def bestMove():
-    bestVal = -math.inf
-    moveChosen = -1
-
-    for move in getMoves():
+    moves = getMoves()
+    values = []
+    for move in moves:
         board[move] = "X"
         value = alphaBeta(0, -math.inf, math.inf, False)
+        values.append(value)
         board[move] = " "
 
-        if value > bestVal:
-            bestVal = value
-            moveChosen = move
-
-    return moveChosen
+    maxIndex = values.index(max(values))
+    return moves[maxIndex] 
 
 print("Tic-Tac-Toe: Human (O) vs AI (X)")
 while True:

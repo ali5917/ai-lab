@@ -7,7 +7,7 @@ Design a grid-based game (1D or 2D) where:
 
 Implement Minimax with:
     Depth limit = 3
-    Custom heuristic function (e.g., distance to goal)
+    Custom heuristic function (distance to goal)
 
 Simulate at least 3 game state and print:
     Chosen move at each step
@@ -34,7 +34,7 @@ def getMoves(pos):
 leafValues = []
 
 def minimax(state, depth, maximizing):
-    agent, opp = state
+    agent, opp = state              # (agentPos, oppPos)  
 
     # Terminal checks
     if agent == goal:               # agent wins
@@ -49,23 +49,28 @@ def minimax(state, depth, maximizing):
         h = heuristic(agent)
         leafValues.append(h)
         return h
-
+    
     if maximizing:
         value = -math.inf
-        for move in getMoves(agent):
-            childValue = minimax((move, opp), depth - 1, False)
+        for m in getMoves(agent):
+            newState = (m, opp)
+            childValue = minimax(newState, depth - 1, False)
             value = max(value, childValue)
         return value
     else:
         value = math.inf
-        for move in getMoves(opp):
-            childValue = minimax((agent, move), depth - 1, True)
+        for m in getMoves(opp):
+            newState = (agent, m)
+            childValue = minimax(newState, depth - 1, True)
             value = min(value, childValue)
         return value
 
 def bestMove(state, depth, maximizing):
     agent, opp = state
-    moves = getMoves(agent if maximizing else opp)
+    if maximizing:
+        moves = getMoves(agent)
+    else:
+        moves = getMoves(opp)
     
     values = []
     for m in moves:
