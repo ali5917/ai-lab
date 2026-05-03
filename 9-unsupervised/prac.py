@@ -9,14 +9,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # 1. Load Dataset
 df = pd.read_csv("fitness_data.csv")
 print("Data Summary")
 print(df.info())
 
-# # 2. Data Cleaning
+# 2. Data Cleaning
+
+# Drop ID column (not a feature)
+df = df.drop('UserID', axis=1)
+
 # Handle missing values (Numeric: median, Categorical: mode)
 numCols = df.select_dtypes(include=['number']).columns
 for col in numCols:
@@ -28,7 +32,16 @@ for col in catCols:
 
 print("\nMissing values after cleaning:", df.isnull().sum().sum())
 
-# 3. Exploratory Data Analysis (EDA)
+# 3. Encode Categorical Values
+le = LabelEncoder()
+textCols = df.select_dtypes(include=["str", "object"]).columns
+for col in textCols:
+    df[col] = le.fit_transform(df[col])
+
+# update numCols to include newly encoded numeric columns
+numCols = df.select_dtypes(include=['number']).columns
+
+# 4. Exploratory Data Analysis (EDA)
 print("\nStatistical Summary")
 print(df.describe())
 
@@ -44,11 +57,8 @@ sns.scatterplot(data=df, x='Steps', y='Calories_Burned')
 plt.title("Steps vs Calories Burned")
 plt.show()
 
-# 4. K-Means Clustering (Using all numeric features for accuracy)
-df = df.drop('UserID', axis=1)
-dfNum = df.select_dtypes(include=['number'])
-X = dfNum.values
-featureNames = dfNum.columns.tolist()
+# 5. K-Means Clustering (using all features for accuracy)
+X = df[numCols].values
 
 # Feature Scaling
 scaler = StandardScaler()
@@ -71,23 +81,23 @@ plt.show()
 kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
 yPred = kmeans.fit_predict(XScaled)
 
-# 5. Visualize Clusters (Plotting first two features)
+# 6. Visualize Clusters (Plotting first two features)
 plt.figure(figsize=(10, 7))
 colors = ['red', 'blue', 'green']
 for i in range(3):
     plt.scatter(X[yPred == i, 0], X[yPred == i, 1], s=100, c=colors[i], label=f'Cluster {i+1}')
 
 # Plot Centroids
+featureNames = numCols.tolist()
 centroids = scaler.inverse_transform(kmeans.cluster_centers_)
 plt.scatter(centroids[:, 0], centroids[:, 1], s=300, c='yellow', label='Centroids')
-
 plt.title('User Activity Segments')
 plt.xlabel(featureNames[0])
 plt.ylabel(featureNames[1])
 plt.legend()
 plt.show()
 
-# 6. Interpretation
+# 7. Interpretation
 print("\nInterpretation")
 centersDf = pd.DataFrame(centroids, columns=featureNames)
 print(centersDf)

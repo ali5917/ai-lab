@@ -74,17 +74,15 @@ for col in textCols:
 # update numCols to include newly encoded numeric columns
 numCols = df.select_dtypes(include=['number']).columns
 
-# Feature Scaling
-
+# Train/Test Split
 X = df.drop("Churn", axis=1)
 y = df["Churn"]
 featureNames = X.columns.tolist()
 
-scaler = StandardScaler()
+scaler = StandardScaler()       # Feature Scaling in SVM
 XScaled = scaler.fit_transform(X)
 XScaled = pd.DataFrame(XScaled, columns=featureNames)
 
-# Train/Test Split
 XTrain, XTest, yTrain, yTest = train_test_split(XScaled, y, test_size=0.2, random_state=42, stratify=y)
 
 # Train SVM Model
@@ -93,7 +91,6 @@ svm.fit(XTrain, yTrain)
 yPred = svm.predict(XTest)
 
 # Feature Importance (Correlation)
-
 featureCorr = df[numCols].corr()['Churn'].drop('Churn')       # exclude itself
 topFeatures = featureCorr.sort_values(ascending=False)
 
@@ -116,9 +113,15 @@ cm = confusion_matrix(yTest, yPred)
 print("\nConfusion Matrix")
 print(cm)
 
-# Predict new customer 
-# Creating a dummy customer with median values (as a DataFrame to keep feature names)
+# Predict new customer (using dummy customer)
+
+# Method 1: Manual entry
+# newCustValues = [45, 12, 1, 350.5, 0, 1, 0, 1, 2]
+# newCustDf = pd.DataFrame([newCustValues], columns=featureNames)
+
+# Method 2: Using median values
 newCustDf = pd.DataFrame([X.median()], columns=featureNames)
+
 newCustScaled = scaler.transform(newCustDf)
 
 pred = svm.predict(newCustScaled)[0]

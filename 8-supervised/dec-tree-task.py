@@ -30,6 +30,9 @@ print(df.info())
 
 # Clean Dataset
 
+# drop id, not a feature 
+df = df.drop("applicant_id", axis=1)
+
 # fill missing values (numeric - median, categorical - mode)
 numCols = df.select_dtypes(include=['number']).columns
 for col in numCols:
@@ -65,7 +68,6 @@ plt.show()
 # Train/Test Split
 X = df.drop("loan_approved", axis=1)
 y = df["loan_approved"]
-featureNames = X.columns.tolist()
 
 XTrain, XTest, yTrain, yTest = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
@@ -83,6 +85,13 @@ print("Recall:", recall_score(yTest, yPred, zero_division=0))
 print("F1 Score:", f1_score(yTest, yPred, zero_division=0))
 
 # Predict new applicant
+featureNames = X.columns.tolist()
+
+# Method 1: Manual entry (provide values for all features in X)
+# newApplicantValues = [ ... ] 
+# newApplicantDf = pd.DataFrame([newApplicantValues], columns=featureNames)
+
+# Method 2: Using median values
 newApplicantDf = pd.DataFrame([X.median()], columns=featureNames)
 
 pred = dt.predict(newApplicantDf)[0]

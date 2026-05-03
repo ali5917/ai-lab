@@ -27,6 +27,9 @@ print(df.info())
 
 # Clean Dataset
 
+# drop id, not a feature
+df = df.drop("student_id", axis=1)
+
 # fill missing values (numeric - median, categorical - mode)
 numCols = df.select_dtypes(include=['number']).columns
 for col in numCols:
@@ -64,7 +67,6 @@ plt.show()
 # Train/Test Split
 X = df.drop("final_score", axis=1)
 y = df["final_score"]
-featureNames = X.columns.tolist()
 
 XTrain, XTest, yTrain, yTest = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -81,6 +83,13 @@ print("MAE:", mean_absolute_error(yTest, yPred))
 print("RMSE:", mean_squared_error(yTest, yPred) ** 0.5)
 
 # Predict new student
+featureNames = X.columns.tolist()
+
+# Method 1: Manual entry (provide values for all features in X)
+# newStudentValues = [ ... ] 
+# newStudentDf = pd.DataFrame([newStudentValues], columns=featureNames)
+
+# Method 2: Using median values
 newStudentDf = pd.DataFrame([X.median()], columns=featureNames)
 
 predictedScore = lr.predict(newStudentDf)[0]
