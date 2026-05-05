@@ -1,0 +1,16 @@
+CustomerID,Gender,Tenure,MonthlyCharges,ContractType,SupportCalls,Churn
+1,Male,12.0,500.0,Monthly,2.0,0
+2,Female,24.0,700.0,Yearly,1.0,0
+3,Male,6.0,300.0,Monthly,4.0,1
+4,Female,36.0,900.0,Yearly,0.0,0
+5,Male,18.0,600.0,Monthly,3.0,1
+6,Female,30.0,800.0,Yearly,1.0,0
+7,Male,3.0,200.0,Monthly,5.0,1
+8,Female,48.0,1000.0,Yearly,0.0,0
+9,Male,15.0,550.0,Monthly,2.0,1
+10,Female,20.0,650.0,Monthly,3.0,0
+11,Male,8.0,,Monthly,4.0,1
+12,Female,,750.0,Yearly,1.0,0
+13,Male,10.0,500.0,,2.0,1
+14,Female,40.0,950.0,Yearly,,0
+15,Male,5.0,250.0,Monthly,5.0,1

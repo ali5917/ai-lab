@@ -74,12 +74,12 @@ n7 = Node(2)
 n8 = Node(3)
 n9 = Node(5)
 n10 = Node(9)
-n3.children = [n7, n8]
-n4.children = [n9, n10]
 n11 = Node(0)
 n12 = Node(1)
 n13 = Node(7)
 n14 = Node(5)
+n3.children = [n7, n8]
+n4.children = [n9, n10]
 n5.children = [n11, n12]
 n6.children = [n13, n14]
 
