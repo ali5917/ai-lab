@@ -40,7 +40,8 @@ Advanced Concepts
 23. Identify the most common 'Ticket' numbers (to find large groups) and visualize results.
 24. Perform time-based analysis on the mock 'BookingDate' to find peak booking periods (monthly trend).
 25. Display the number of passengers per 'Ticket' to understand group booking behavior.
-26. Prepare a Ticket-level dataset by creating aggregated features such as total fare paid, total passenger count, and total family members per ticket.
+26. Prepare a Ticket-level dataset by creating aggregated features such as total fare paid, 
+    total passenger count, and total family members per ticket.
 """
 
 import pandas as pd
