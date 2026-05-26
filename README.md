@@ -1,4 +1,4 @@
-# AI Lab
+# AI Lab - Fast NU Semester 4 - Spring 26
 
 Implementations of fundamental AI algorithms and concepts.
 
