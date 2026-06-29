@@ -1,6 +1,6 @@
 # AI Lab - Fast NU Semester 4 - Spring 26
 
-### Implementations of fundamental AI algorithms and concepts.
+Implementations of fundamental AI algorithms and concepts.
 
 ## Lab Topics
 - **Agents**: Reflex, model, goal, and utility-based agents.
